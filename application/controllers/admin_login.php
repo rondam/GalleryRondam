@@ -1,40 +1,64 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
 class Admin_Login extends CI_Controller {
 
-    /**
-     * Index Page for this controller.
-     *
-     * Maps to the following URL
-     * 		http://example.com/index.php/welcome
-     *	- or -
-     * 		http://example.com/index.php/welcome/index
-     *	- or -
-     * Since this controller is set as the default controller in
-     * config/routes.php, it's displayed at http://example.com/
-     *
-     * So any other public methods not prefixed with an underscore will
-     * map to /index.php/welcome/<method_name>
-     * @see http://codeigniter.com/user_guide/general/urls.html
-     */
     public function __construct()
     {
         parent::__construct();
+		$this->load->helper('url');
+        $this->load->helper('form');
+        $this->load->library('form_validation');
+        $this->load->library('session');
+        $this->load->model('user');
     }
 
-        // Check for user login process
-        public function login()
+    public function login()
+    {
+        $context = [];
+
+        if ($this->session->userdata('username'))
         {
-			// Esto va a fallar siempre. La cosa es que password_verify acepta dos argumentos, la
-			// pass y un hash. La idea es que te conectes a la base de datos, leas el hash y lo
-			// compares con una contrasenya. Eso iria mejor dentro de una clase de modelo. No se si lo
-			// sabrias ya, pero si no, ya te lo digo yo xD
-			
-            if (password_verify('admin', 'olakase')) {
-                echo '¡La contraseña es válida!';
-            } else {
-                echo 'La contraseña no es válida.';
+            $context['logged_in'] = TRUE;
+        }
+        else
+        {
+            $validation_rules = array(
+                array('field' => 'username',
+                    'label' => '',
+                    'rules' => 'required'),
+                array('field' => 'password',
+                    'label' => '',
+                    'rules' => 'required'),
+            );
+            $this->form_validation->set_rules($validation_rules);
+
+            if ($this->form_validation->run() === TRUE)
+            {
+                $username = $this->input->post('username');
+                $password = $this->input->post('password');
+                if ($this->user->login($username, $password))
+                {
+                    $this->session->set_userdata(array('username' => $username));
+                    $context['logged_in'] = TRUE;
+                }
+                else
+                {
+                    $context['wrong_credentials'] = TRUE;
+                }
             }
         }
+
+        $this->load->view('login', $context);
+    }
+
+    public function logout()
+    {
+        $context = [];
+        if ($this->session->userdata('username'))
+        {
+            $this->session->sess_destroy();
+            $context['logged_out'] = TRUE;
+        }
+        $this->load->view('login', $context);
+    }
 }
