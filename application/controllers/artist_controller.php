@@ -12,9 +12,10 @@ class Artist_Controller extends CI_Controller
         $this->load->model('artist_model');
     }
 
-    public function add_artist()
+    public function index()
     {
         $context = [];
+        $operation_type = $this->input->post('operation_type');
 
         if ($this->session->userdata('username'))
         {
@@ -25,45 +26,59 @@ class Artist_Controller extends CI_Controller
             $context['wrong_credentials'] = TRUE;
         }
 
-        $validation_rules = array(
-            array('field' => 'artist_name',
+
+        if ($operation_type === 'add')
+        {
+            $validation_rules = array(
+                array('field' => 'artist_name',
                 'label' => '',
                 'rules' => 'required'),
-        );
+            );
 
-        $this->form_validation->set_rules($validation_rules);
+            $this->form_validation->set_rules($validation_rules);
 
-        if ($this->form_validation->run() === TRUE)
-        {
-            $artist_name = $this->input->post('artist_name');
+            if ($this->form_validation->run() === TRUE) {
+                $artist_name = $this->input->post('artist_name');
 
-            $this->artist_model->add_artist($artist_name);
-            //$context['artist added'] = TRUE;
-        }
-        else
-        {
-            //$context['error adding artist'] = TRUE;
-        }
-		
-            // Deberias llamar a form_validation antes de hacer nada, por temas de seguridad entre otras cosas.
-            // Coge como ejemplo la vista. Ademas, no tiene sentido coger la lista de artistas ANTES DE eliminar a
-            // uno porque entonces vas a seguir mostrando un artista que ya has eliminado.
-            //
-            $id = $this->input->post('remove_artist');
-			echo $id;
-
-            $this->artist_model->remove_artist($id);
-			
-
-            $artist_names =  $this->artist_model->select_all();
-            $form_names = [];
-            foreach ($artist_names->result() as $item) {
-                $form_names[$item->id] = $item->name;
+                if($this->artist_model->add_artist($artist_name)) {
+                    $context['artist_added'] = TRUE;
+                }
+            } else {
+                $context['error_adding_artist'] = TRUE;
             }
-            $context['form_names'] = $form_names;
-		
-		
-         $this->load->view('artist_view', $context);
+        }
+
+        if ($operation_type === 'remove')
+        {
+            $validation_rules = array(
+                array('field' => 'id',
+                    'label' => '',
+                    'rules' => 'required'),
+            );
+
+            $this->form_validation->set_rules($validation_rules);
+
+            if ($this->form_validation->run() === TRUE) {
+                $id = $this->input->post('id');
+                if($this->artist_model->remove_artist($id)) {
+                    $context['artist_removed'] = TRUE;
+                }
+            }else{
+                $context['error_removing_artist'] = TRUE;
+            }
+
+        }
+
+        $artist_names = $this->artist_model->select_all();
+        $form_names = [];
+
+        foreach ($artist_names->result() as $item)
+        {
+            $form_names[$item->id] = $item->name;
+        }
+        $context['form_names'] = $form_names;
+
+        $this->load->view('artist_view', $context);
            
     }
     

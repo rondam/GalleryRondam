@@ -4,16 +4,43 @@
     <title>Add Artist</title>
 </head>
 <body>
-    <?php if (isset($logged_in) && $logged_in === TRUE): ?>
-        <h3>You are logged in. <a href="<?php echo base_url() . 'admin_login/logout' ?>">Logout</a>.</h3>
-        <form action="<?php echo base_url() . 'artist_controller/add_artist' ?>" method="POST">
-            <input type="text" name="artist_name" id="artist_name" placeholder="Artist_name"/>
-            <input type="submit" value="Add Artist"/>
-        </form>
-		<br>
-        <?php echo form_dropdown('id', $form_names); ?>
-		<input type="submit" value="Remove Artist"/>
+<?php if (isset($logged_in) && $logged_in === TRUE): ?>
+    <h3>You are logged in. <a href="<?php echo base_url() . 'admin_login/logout' ?>">Logout</a>.</h3>
+    <?php
+    $hidden = array('operation_type' => 'add');
+    echo form_open('artist_controller', null, $hidden);
+
+    echo form_input('artist_name', '');
+    echo form_submit('submit1', 'Add Artist');
+
+    echo form_close();
+    ?>
+    <br>
+
+    <?php
+    $hidden = array('operation_type' => 'remove');
+    echo form_open('artist_controller', null, $hidden);
+    echo form_dropdown('id', $form_names);
+    echo form_submit('submit2', 'Remove Artist');
+    echo form_close();
+    ?>
+    <?php if (isset($artist_added) && $artist_added === TRUE): ?>
+        <h2>El artista ha sido añadido</h2>
     <?php endif; ?>
+    <?php if (isset($error_adding_artist) && $error_adding_artist === TRUE): ?>
+        <h2>El artista ha sido añadido</h2>
+    <?php endif; ?>
+    <?php if (isset($artist_removed) && $artist_removed === TRUE): ?>
+        <h2>El artista ha sido borrado</h2>
+    <?php endif; ?>
+    <?php if (isset($error_removing_artist) && $error_removing_artist === TRUE): ?>
+        <h2>El artista ha sido añadido</h2>
+    <?php endif; ?>
+<?php else: ?>
+    <?php if (isset($wrong_credentials) && $wrong_credentials === TRUE): ?>
+        <a href="<?php echo base_url() . 'admin_login/login' ?>">You need to login</a>
+    <?php endif; ?>
+<?php endif; ?>
 
 </body>
 </html>

@@ -12,6 +12,13 @@ class Artist_Model extends CI_Model
     {
         $this->db->set('name',$artist_name);
         $this->db->insert('Author');
+        if ($this->db->affected_rows()> 0)
+        {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+        return FALSE;
     }
 
     public function select_all ()
@@ -22,13 +29,12 @@ class Artist_Model extends CI_Model
     public function remove_artist($id)
     {
         $this->db->delete('Author', array('id' => $id)); 
-        /*if ($this->db->affected_rows()> 0)
+        if ($this->db->affected_rows()> 0)
         {
             return TRUE;
         } else {
             return FALSE;
-        }*/
-
-
+        }
+        return FALSE;
     }
 }
