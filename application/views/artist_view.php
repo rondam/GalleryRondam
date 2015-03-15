@@ -25,16 +25,16 @@
     echo form_close();
     ?>
     <?php if (isset($artist_added) && $artist_added === TRUE): ?>
-        <h2>El artista ha sido añadido</h2>
+        <h2>The artist has been added</h2>
     <?php endif; ?>
     <?php if (isset($error_adding_artist) && $error_adding_artist === TRUE): ?>
-        <h2>El artista ha sido añadido</h2>
+        <h2>Error while adding artist</h2>
     <?php endif; ?>
     <?php if (isset($artist_removed) && $artist_removed === TRUE): ?>
-        <h2>El artista ha sido borrado</h2>
+        <h2>The artist has been deleted</h2>
     <?php endif; ?>
     <?php if (isset($error_removing_artist) && $error_removing_artist === TRUE): ?>
-        <h2>El artista ha sido añadido</h2>
+        <h2>Error while deleting artist</h2>
     <?php endif; ?>
 <?php else: ?>
     <?php if (isset($wrong_credentials) && $wrong_credentials === TRUE): ?>

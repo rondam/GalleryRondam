@@ -1,6 +1,6 @@
 <?php
 
-class Artist_Model extends CI_Model
+class Exhibition_Model extends CI_Model
 {
     public function __construct()
     {
@@ -8,10 +8,10 @@ class Artist_Model extends CI_Model
         $this->load->database();
     }
 
-    public function add_artist($artist_name)
+    public function add_exhibition($exhibition_name)
     {
-        $this->db->set('name',$artist_name);
-        $this->db->insert('Author');
+        $this->db->set('name',$exhibition_name);
+        $this->db->insert('exhibition');
         if ($this->db->affected_rows()> 0)
         {
             return TRUE;
@@ -22,14 +22,15 @@ class Artist_Model extends CI_Model
 
     public function select_all ()
     {
-        $this->db->from("author");
+        $this->db->from("exhibition");
         $this->db->order_by("name", "asc");
         $query = $this->db->get();
         return $query;
     }
-    public function remove_artist($id)
+
+    public function remove_exhibition($id)
     {
-        $this->db->delete('Author', array('id' => $id)); 
+        $this->db->delete('exhibition', array('id' => $id));
         if ($this->db->affected_rows()> 0)
         {
             return TRUE;
