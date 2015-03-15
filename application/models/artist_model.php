@@ -27,6 +27,7 @@ class Artist_Model extends CI_Model
         $query = $this->db->get();
         return $query;
     }
+
     public function remove_artist($id)
     {
         $this->db->delete('Author', array('id' => $id)); 

@@ -24,6 +24,7 @@
     echo form_submit('submit2', 'Remove Artist');
     echo form_close();
     ?>
+
     <?php if (isset($artist_added) && $artist_added === TRUE): ?>
         <h2>The artist has been added</h2>
     <?php endif; ?>

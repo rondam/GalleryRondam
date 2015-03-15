@@ -17,15 +17,18 @@ class Artist_Controller extends CI_Controller
         $context = [];
         $operation_type = $this->input->post('operation_type');
 
+        /* Credentials test */
         if ($this->session->userdata('username'))
         {
             $context['logged_in'] = TRUE;
         }
         else
         {
-            $context['wrong_credentials'] = TRUE;
+           // $context['wrong_credentials'] = TRUE;
+            return;
         }
 
+        /* Add author to the db */
 
         if ($operation_type === 'add')
         {
@@ -47,6 +50,8 @@ class Artist_Controller extends CI_Controller
                 $context['error_adding_artist'] = TRUE;
             }
         }
+
+        /* Remove author from the db */
 
         if ($operation_type === 'remove')
         {
