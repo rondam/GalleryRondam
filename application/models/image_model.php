@@ -33,7 +33,8 @@ class Image_Model extends CI_Model
 
         $query = $this->db->get();
 
-        return $query;
+
+        return $query->result();
     }
 
     public function get_image_by_id ($id)
@@ -45,6 +46,7 @@ class Image_Model extends CI_Model
 
         return $row;
     }
+
 
     public function remove ($id)
     {
@@ -101,7 +103,7 @@ class Image_Model extends CI_Model
         $this->db->from("imageexhibition");
         $this->db->order_by("image", "asc");
         $query = $this->db->get();
-        return $query;
+        return $query->result();
     }
 
 }

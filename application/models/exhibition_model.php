@@ -25,7 +25,7 @@ class Exhibition_Model extends CI_Model
         $this->db->from("exhibition");
         $this->db->order_by("name", "asc");
         $query = $this->db->get();
-        return $query;
+        return $query->result();
     }
 
     public function remove_exhibition($id)

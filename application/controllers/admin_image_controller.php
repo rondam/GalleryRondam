@@ -94,7 +94,7 @@ class Admin_Image_Controller extends CI_Controller
         $exhibition_name = $this->exhibition_model->select_all();
         $form_exhibitions = [];
 
-        foreach ($exhibition_name->result() as $item)
+        foreach ($exhibition_name as $item)
         {
             $form_exhibitions[$item->id] = $item->name;
         }
@@ -207,7 +207,7 @@ class Admin_Image_Controller extends CI_Controller
                 /*removing from local*/
 
                 $image = $this->image_model->get_image_by_id($id);
-                \var_dump($image);
+                //\var_dump($image);
                 unlink($image->url);
 
                 /*removing from db */
@@ -231,7 +231,7 @@ class Admin_Image_Controller extends CI_Controller
         $artist_names = $this->artist_model->select_all();
         $form_names = [];
 
-        foreach ($artist_names->result() as $item)
+        foreach ($artist_names as $item)
         {
             $form_names[$item->id] = $item->name;
         }
@@ -243,7 +243,7 @@ class Admin_Image_Controller extends CI_Controller
         $images_name = $this->image_model->select_all();
         $form_images = [];
 
-        foreach ($images_name->result() as $item)
+        foreach ($images_name as $item)
         {
             $form_images[$item->id] = $item->author_name . ': ' . $item->name  ;
         }

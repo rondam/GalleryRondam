@@ -72,7 +72,7 @@ class Exhibition_Controller extends CI_Controller
         $exhibition_names = $this->exhibition_model->select_all();
         $form_names = [];
 
-        foreach ($exhibition_names->result() as $item)
+        foreach ($exhibition_names as $item)
         {
             $form_names[$item->id] = $item->name;
         }
