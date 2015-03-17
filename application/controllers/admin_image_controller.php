@@ -171,7 +171,7 @@ class Admin_Image_Controller extends CI_Controller
                 if ($this->upload->do_upload())
                 {
 
-                    /* check extension and add it to the file */
+                    /* get extension and add it to the file */
                     $extension = $this->upload->data()['file_ext'];
 
                     $full_path = $path . $filename . $extension;

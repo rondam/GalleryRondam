@@ -96,4 +96,12 @@ class Image_Model extends CI_Model
         }
     }
 
+    public function select_all_from_imageexhibition()
+    {
+        $this->db->from("imageexhibition");
+        $this->db->order_by("image", "asc");
+        $query = $this->db->get();
+        return $query;
+    }
+
 }
