@@ -16,6 +16,7 @@ class Image_Gallery_Controller extends CI_Controller
 
     function gallery ($id_image)
     {
+
         /* Get image from directory */
 
         /* first we get the URL */

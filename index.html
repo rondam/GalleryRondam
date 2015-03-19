@@ -12,112 +12,133 @@
 	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 </head> 
-<body ng-controller="GalleryController">
+<body ng-controller="GalleryController" >
+<div data-role="page" data-fullscreen = "true">
 		<div data-role="header" data-position="inline" data-theme="a">
 			<h1>It Worked!</h1>
 		</div>
-			
-		<div id="gallery_content" data-role="content" data-theme="a" >
-			
-			<!-- otra posibilidad de ng-repeat:<img ng-repeat="image in images" ng-src="{{image}}"></img>			
+
+
+        <div data-role="content" class="imageBlock"  ng-show="showImage" ng-click="closeImage()" >
+
+            <img class="big_image"
+                 ng-src="backend/index.php/image_gallery_controller/gallery/{{currentImage.id}}">
+            <div data-role="footer" data-position="fixed" >
+                <h4>Name: {{currentImage.name}}
+                    <br>
+                Author: {{currentImage.author_name}}</h4>
+                <a href="" class="ui-btn ui-corner-all ui-btn-inline ui-mini footer-button-left ui-btn-icon-left ui-icon-carat-l" >Previous</a>
+                <a href="" class="ui-btn ui-corner-all ui-btn-inline ui-mini footer-button-right ui-btn-icon-right ui-icon-carat-r">Next</a>
+            </div>
+
+        </div>
+
+
+        <div id="gallery_content" ng-hide="showImage" data-role="content" data-theme="a" >
+
+			<!-- otra posibilidad de ng-repeat:<img ng-repeat="image in images" ng-src="{{image}}"></img>
 			<div ng-repeat="image in images"> <img ng-src={{image}}/> </div>-->
 			
-		<div id="gallery_background" data-role="content" data-theme="c" class="ui-content ui-body-c" role="main">
+		<div data-role="content"  data-theme="c" class="ui-content ui-body-c" role="main">
 
 				<div ng-repeat="image in images" class="gallery_images">
-					<img class="gallery_images" ng-src="backend/index.php/image_gallery_controller/gallery/{{image.id}}"></img> 
-				
-				</div>
-			</div>
-			
-		
-	
-		</div>
-		
-			
-		
-
-		<div id="view" data-role="content" data-theme="d">
-			<p>Your theme was successfully downloaded. You can use this page as a reference for how to link it up!</p>
-			<pre>
-
-			</pre>
-			<p>This is content color swatch "d" and a preview of a <a href="#" class="ui-link">link</a>.</p>
-			<label for="slider1">Input slider:</label>
-			<input type="range" name="slider1" id="slider1" value="50" min="0" max="100" data-theme="d" />
-			<fieldset data-role="controlgroup"  data-type="horizontal" data-role="fieldcontain">
-			<legend>Cache settings:</legend>
-			<input type="radio" name="radio-choice-a1" id="radio-choice-a1" value="on" checked="checked" />
-			<label for="radio-choice-a1">On</label>
-			<input type="radio" name="radio-choice-a1" id="radio-choice-b1" value="off"  />
-			<label for="radio-choice-b1">Off</label>
-			</fieldset>
-		</div>
-	
-		<div id="view" data-role="content" data-theme="c">
-			<p>Your theme was successfully downloaded. You can use this page as a reference for how to link it up!</p>
-			<pre>
-<strong>&lt;link rel=&quot;stylesheet&quot; href=&quot;themes/colores.min.css&quot; /&gt;</strong>
-<strong>&lt;link rel=&quot;stylesheet&quot; href=&quot;themes/jquery.mobile.icons.min.css&quot; /&gt;</strong>
-&lt;link rel=&quot;stylesheet&quot; href=&quot;http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css&quot; /&gt;
-&lt;script src=&quot;http://code.jquery.com/jquery-1.11.1.min.js&quot;&gt;&lt;/script&gt;
-&lt;script src=&quot;http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js&quot;&gt;&lt;/script&gt;
-			</pre>
-			<p>This is content color swatch "c" and a preview of a <a href="#" class="ui-link">link</a>.</p>
-			<label for="slider1">Input slider:</label>
-			<input type="range" name="slider1" id="slider1" value="50" min="0" max="100" data-theme="d" />
-			<fieldset data-role="controlgroup"  data-type="horizontal" data-role="fieldcontain">
-			<legend>Cache settings:</legend>
-			<input type="radio" name="radio-choice-a1" id="radio-choice-a1" value="on" checked="checked" />
-			<label for="radio-choice-a1">On</label>
-			<input type="radio" name="radio-choice-a1" id="radio-choice-b1" value="off"  />
-			<label for="radio-choice-b1">Off</label>
-			</fieldset>
-		</div>
+                    <div class="wrapper">
+					<img class="gallery_images" ng-click="imageOnClick(image)"
+                         ng-src="backend/index.php/image_gallery_controller/gallery/{{image.id}}">
 
 
-		<div id="view" data-role="content" data-theme="b">
-			<p>Your theme was successfully downloaded. You can use this page as a reference for how to link it up!</p>
-			<pre>
-<strong>&lt;link rel=&quot;stylesheet&quot; href=&quot;themes/colores.min.css&quot; /&gt;</strong>
-<strong>&lt;link rel=&quot;stylesheet&quot; href=&quot;themes/jquery.mobile.icons.min.css&quot; /&gt;</strong>
-&lt;link rel=&quot;stylesheet&quot; href=&quot;http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css&quot; /&gt;
-&lt;script src=&quot;http://code.jquery.com/jquery-1.11.1.min.js&quot;&gt;&lt;/script&gt;
-&lt;script src=&quot;http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js&quot;&gt;&lt;/script&gt;
-			</pre>
-			<p>This is content color swatch "b" and a preview of a <a href="#" class="ui-link">link</a>.</p>
-			<label for="slider1">Input slider:</label>
-			<input type="range" name="slider1" id="slider1" value="50" min="0" max="100" data-theme="d" />
-			<fieldset data-role="controlgroup"  data-type="horizontal" data-role="fieldcontain">
-			<legend>Cache settings:</legend>
-			<input type="radio" name="radio-choice-a1" id="radio-choice-a1" value="on" checked="checked" />
-			<label for="radio-choice-a1">On</label>
-			<input type="radio" name="radio-choice-a1" id="radio-choice-b1" value="off"  />
-			<label for="radio-choice-b1">Off</label>
-			</fieldset>
-		</div>
+                    </div>
+                </div>
+        </div>
 
 
-		<div id="view" data-role="content" data-theme="a">
-			<p>Your theme was successfully downloaded. You can use this page as a reference for how to link it up!</p>
-			<pre>
-<strong>&lt;link rel=&quot;stylesheet&quot; href=&quot;themes/colores.min.css&quot; /&gt;</strong>
-<strong>&lt;link rel=&quot;stylesheet&quot; href=&quot;themes/jquery.mobile.icons.min.css&quot; /&gt;</strong>
-&lt;link rel=&quot;stylesheet&quot; href=&quot;http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css&quot; /&gt;
-&lt;script src=&quot;http://code.jquery.com/jquery-1.11.1.min.js&quot;&gt;&lt;/script&gt;
-&lt;script src=&quot;http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js&quot;&gt;&lt;/script&gt;
-			</pre>
-			<p>This is content color swatch "a" and a preview of a <a href="#" class="ui-link">link</a>.</p>
-			<label for="slider1">Input slider:</label>
-			<input type="range" name="slider1" id="slider1" value="50" min="0" max="100" data-theme="d" />
-			<fieldset data-role="controlgroup"  data-type="horizontal" data-role="fieldcontain">
-			<legend>Cache settings:</legend>
-			<input type="radio" name="radio-choice-a1" id="radio-choice-a1" value="on" checked="checked" />
-			<label for="radio-choice-a1">On</label>
-			<input type="radio" name="radio-choice-a1" id="radio-choice-b1" value="off"  />
-			<label for="radio-choice-b1">Off</label>
-			</fieldset>
-		</div>
 
-</body>
-</html>
+        </div>
+
+
+
+
+           <div class="view" data-role="content" data-theme="d">
+               <p>Your theme was successfully downloaded. You can use this page as a reference for how to link it up!</p>
+               <pre>
+
+               </pre>
+               <p>This is content color swatch "d" and a preview of a <a href="#" class="ui-link">link</a>.</p>
+               <label for="slider1">Input slider:</label>
+               <input type="range" name="slider1" id="slider1" value="50" min="0" max="100" data-theme="d" />
+               <fieldset data-role="controlgroup"  data-type="horizontal" data-role="fieldcontain">
+               <legend>Cache settings:</legend>
+               <input type="radio" name="radio-choice-a1" id="radio-choice-a1" value="on" checked="checked" />
+               <label for="radio-choice-a1">On</label>
+               <input type="radio" name="radio-choice-a1" id="radio-choice-b1" value="off"  />
+               <label for="radio-choice-b1">Off</label>
+               </fieldset>
+           </div>
+
+           <div class="view" data-role="content" data-theme="c">
+               <p>Your theme was successfully downloaded. You can use this page as a reference for how to link it up!</p>
+               <pre>
+   <strong>&lt;link rel=&quot;stylesheet&quot; href=&quot;themes/colores.min.css&quot; /&gt;</strong>
+   <strong>&lt;link rel=&quot;stylesheet&quot; href=&quot;themes/jquery.mobile.icons.min.css&quot; /&gt;</strong>
+   &lt;link rel=&quot;stylesheet&quot; href=&quot;http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css&quot; /&gt;
+   &lt;script src=&quot;http://code.jquery.com/jquery-1.11.1.min.js&quot;&gt;&lt;/script&gt;
+   &lt;script src=&quot;http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js&quot;&gt;&lt;/script&gt;
+               </pre>
+               <p>This is content color swatch "c" and a preview of a <a href="#" class="ui-link">link</a>.</p>
+               <label for="slider1">Input slider:</label>
+               <input type="range" name="slider1" id="slider1" value="50" min="0" max="100" data-theme="d" />
+               <fieldset data-role="controlgroup"  data-type="horizontal" data-role="fieldcontain">
+               <legend>Cache settings:</legend>
+               <input type="radio" name="radio-choice-a1" id="radio-choice-a1" value="on" checked="checked" />
+               <label for="radio-choice-a1">On</label>
+               <input type="radio" name="radio-choice-a1" id="radio-choice-b1" value="off"  />
+               <label for="radio-choice-b1">Off</label>
+               </fieldset>
+           </div>
+
+
+           <div class="view" data-role="content" data-theme="b">
+               <p>Your theme was successfully downloaded. You can use this page as a reference for how to link it up!</p>
+               <pre>
+   <strong>&lt;link rel=&quot;stylesheet&quot; href=&quot;themes/colores.min.css&quot; /&gt;</strong>
+   <strong>&lt;link rel=&quot;stylesheet&quot; href=&quot;themes/jquery.mobile.icons.min.css&quot; /&gt;</strong>
+   &lt;link rel=&quot;stylesheet&quot; href=&quot;http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css&quot; /&gt;
+   &lt;script src=&quot;http://code.jquery.com/jquery-1.11.1.min.js&quot;&gt;&lt;/script&gt;
+   &lt;script src=&quot;http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js&quot;&gt;&lt;/script&gt;
+               </pre>
+               <p>This is content color swatch "b" and a preview of a <a href="#" class="ui-link">link</a>.</p>
+               <label for="slider1">Input slider:</label>
+               <input type="range" name="slider1" id="slider1" value="50" min="0" max="100" data-theme="d" />
+               <fieldset data-role="controlgroup"  data-type="horizontal" data-role="fieldcontain">
+               <legend>Cache settings:</legend>
+               <input type="radio" name="radio-choice-a1" id="radio-choice-a1" value="on" checked="checked" />
+               <label for="radio-choice-a1">On</label>
+               <input type="radio" name="radio-choice-a1" id="radio-choice-b1" value="off"  />
+               <label for="radio-choice-b1">Off</label>
+               </fieldset>
+           </div>
+
+
+           <div class="view" data-role="content" data-theme="a">
+               <p>Your theme was successfully downloaded. You can use this page as a reference for how to link it up!</p>
+               <pre>
+   <strong>&lt;link rel=&quot;stylesheet&quot; href=&quot;themes/colores.min.css&quot; /&gt;</strong>
+   <strong>&lt;link rel=&quot;stylesheet&quot; href=&quot;themes/jquery.mobile.icons.min.css&quot; /&gt;</strong>
+   &lt;link rel=&quot;stylesheet&quot; href=&quot;http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css&quot; /&gt;
+   &lt;script src=&quot;http://code.jquery.com/jquery-1.11.1.min.js&quot;&gt;&lt;/script&gt;
+   &lt;script src=&quot;http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js&quot;&gt;&lt;/script&gt;
+               </pre>
+               <p>This is content color swatch "a" and a preview of a <a href="#" class="ui-link">link</a>.</p>
+               <label for="slider1">Input slider:</label>
+               <input type="range" name="slider1" id="slider1" value="50" min="0" max="100" data-theme="d" />
+               <fieldset data-role="controlgroup"  data-type="horizontal" data-role="fieldcontain">
+               <legend>Cache settings:</legend>
+               <input type="radio" name="radio-choice-a1" id="radio-choice-a1" value="on" checked="checked" />
+               <label for="radio-choice-a1">On</label>
+               <input type="radio" name="radio-choice-a1" id="radio-choice-b1" value="off"  />
+               <label for="radio-choice-b1">Off</label>
+               </fieldset>
+           </div>
+</div>
+   </body>
+   </html>
