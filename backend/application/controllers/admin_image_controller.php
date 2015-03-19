@@ -1,5 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+
 class Admin_Image_Controller extends CI_Controller
 {
     public function __construct()
@@ -14,7 +15,7 @@ class Admin_Image_Controller extends CI_Controller
         $this->load->model('exhibition_model');
     }
 
-    function exhibition ($image_id)
+    function exhibition($image_id)
     {
         $context = [];
         $context ['id'] = $image_id;
@@ -22,21 +23,18 @@ class Admin_Image_Controller extends CI_Controller
 
         /* Credentials test */
 
-        if ($this->session->userdata('username'))
-        {
+        if ($this->session->userdata('username')) {
             $context['logged_in'] = TRUE;
-        }
-        else
-        {
+        } else {
             return;
         }
 
 
         /* check if image exists on database */
-    if ( $this->image_model->get_image_by_id($image_id) === null){
-        return;
+        if ($this->image_model->get_image_by_id($image_id) === null) {
+            return;
 
-    }
+        }
         $image_name = $this->image_model->get_image_by_id($image_id);
         $context['image_name'] = $image_name->name;
 
@@ -77,8 +75,7 @@ class Admin_Image_Controller extends CI_Controller
         }
         $form_ids = [];
 
-        foreach ($exhibitions as $item)
-        {
+        foreach ($exhibitions as $item) {
             $form_ids[$item->id] = $item->id;
         }
 
@@ -94,13 +91,11 @@ class Admin_Image_Controller extends CI_Controller
         $exhibition_name = $this->exhibition_model->select_all();
         $form_exhibitions = [];
 
-        foreach ($exhibition_name as $item)
-        {
+        foreach ($exhibition_name as $item) {
             $form_exhibitions[$item->id] = $item->name;
         }
 
         $context['exhibitions'] = $form_exhibitions;
-
 
 
         $this->load->view('image_exhibition_view', $context);
@@ -115,12 +110,9 @@ class Admin_Image_Controller extends CI_Controller
 
         /* Credentials test */
 
-        if ($this->session->userdata('username'))
-        {
+        if ($this->session->userdata('username')) {
             $context['logged_in'] = TRUE;
-        }
-        else
-        {
+        } else {
             //$context['wrong_credentials'] = TRUE;
             return;
         }
@@ -154,7 +146,6 @@ class Admin_Image_Controller extends CI_Controller
                 }
 
 
-
                 /* The files will be stored with a timestamp for their name so we can
                  * know the ones that were uploaded first.
                  */
@@ -164,12 +155,11 @@ class Admin_Image_Controller extends CI_Controller
 
                 $config['upload_path'] = $path;
                 $config['allowed_types'] = 'jpg|png';
-                $config['file_name'] = $filename ;
+                $config['file_name'] = $filename;
                 $config['max_size'] = 1024;
 
                 $this->load->library('upload', $config);
-                if ($this->upload->do_upload())
-                {
+                if ($this->upload->do_upload()) {
 
                     /* get extension and add it to the file */
                     $extension = $this->upload->data()['file_ext'];
@@ -189,8 +179,7 @@ class Admin_Image_Controller extends CI_Controller
 
         /* remove image from db and storage */
 
-        if ($operation_type === 'remove')
-        {
+        if ($operation_type === 'remove') {
 
             $validation_rules = array(
                 array('field' => 'show_image_name',
@@ -200,8 +189,7 @@ class Admin_Image_Controller extends CI_Controller
 
             $this->form_validation->set_rules($validation_rules);
 
-            if ($this->form_validation->run() === TRUE)
-            {
+            if ($this->form_validation->run() === TRUE) {
                 $id = $this->input->post('show_image_name');
 
                 /*removing from local*/
@@ -212,18 +200,17 @@ class Admin_Image_Controller extends CI_Controller
 
                 /*removing from db */
 
-                if($this->image_model->remove($id)) {
+                if ($this->image_model->remove($id)) {
                     //$context['image_removed'] = TRUE;
-                    echo ('success');
+                    echo('success');
                 }
-            }else{
+            } else {
                 //$context['error_removing_image'] = TRUE;
-                echo ('fail');
+                echo('fail');
             }
 
             echo validation_errors();
         }
-
 
 
         /* dropdown of upload */
@@ -231,8 +218,7 @@ class Admin_Image_Controller extends CI_Controller
         $artist_names = $this->artist_model->select_all();
         $form_names = [];
 
-        foreach ($artist_names as $item)
-        {
+        foreach ($artist_names as $item) {
             $form_names[$item->id] = $item->name;
         }
 
@@ -243,15 +229,14 @@ class Admin_Image_Controller extends CI_Controller
         $images_name = $this->image_model->select_all();
         $form_images = [];
 
-        foreach ($images_name as $item)
-        {
-            $form_images[$item->id] = $item->author_name . ': ' . $item->name  ;
+        foreach ($images_name as $item) {
+            $form_images[$item->id] = $item->author_name . ': ' . $item->name;
         }
 
         $context['form_images'] = $form_images;
 
         //\var_dump($form_images);
-        $this->load->view('image_view',$context);
+        $this->load->view('image_view', $context);
 
     }
 }

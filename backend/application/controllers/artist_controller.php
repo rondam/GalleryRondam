@@ -77,7 +77,7 @@ class Artist_Controller extends CI_Controller
         $artist_names = $this->artist_model->select_all();
         $form_names = [];
 
-        foreach ($artist_names->result() as $item)
+        foreach ($artist_names as $item)
         {
             $form_names[$item->id] = $item->name;
         }

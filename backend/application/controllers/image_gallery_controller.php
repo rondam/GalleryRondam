@@ -36,6 +36,29 @@ class Image_Gallery_Controller extends CI_Controller
         }
     }
 
+    function thumbnail ($id_image)
+    {
+
+        /* Get image from directory */
+
+        /* first we get the URL */
+        $image = $this->image_model->get_image_by_id($id_image);
+
+        $config['image_library'] = 'gd2';
+        //$config['library_path'] = 'C:\\Program Files\\ImageMagick-6.9.0-Q16';
+        $config['source_image'] = $image->url;
+        $config['create_thumb'] = TRUE;
+        $config['maintain_ratio'] = TRUE;
+        $config['width'] = 200;
+        $config['height'] = 200;
+        $config['dynamic_output'] = TRUE;
+
+        $this->load->library('image_lib', $config);
+        if(!$this->image_lib->resize()){
+            echo $this->image_lib->display_errors();
+        }
+    }
+
     public function index()
     {
         // we are going to store data from the database in this array

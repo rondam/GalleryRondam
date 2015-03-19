@@ -11,20 +11,30 @@ div#tmp {
 
 }
 
-
-
-.wrapper{
-    width: 200px;
+.wrapperImage{
     height: 100px;
+    margin: 10px;
 }
 
 .gallery_images{
-    width: 200px;
-    height: 100px;
-
-    margin: 2% 2% 2% 2%;
+    max-width: 200px;
+    max-height: 100px;
+    margin: 1% 2% 1% 2%;
     display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+}
 
+#image-metadata {
+    position: relative;
+}
+
+#closeView {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 10;
 }
 
 .imageBlock{
@@ -37,21 +47,24 @@ div#tmp {
     z-index:20;/
 */}
 
+.wrapperComments{
+
+}
 
 
 .big_image{
     margin-left: auto;
     margin-right: auto;
     position: relative;
-    max-height: 90vh;
+    max-height: 80vh;
+    margin-bottom: 1em;
     max-width: 90vw;
     display: table-cell;
     vertical-align: middle;
     text-align:center;
 }
 
-
-.footer-button-left,
+.footer-button-left,right
 .footer-button-right {
         position: absolute;
         margin: 0;
@@ -60,9 +73,11 @@ div#tmp {
 }
 .footer-button-left {
         left: 0.4em;
+    float:left;
 }
 .footer-button-right {
         right: 0.4em;
+    float: right;
 }
 /*debería poder ajustarse al contenido*/
 /*#gallery_background{

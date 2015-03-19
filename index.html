@@ -14,27 +14,49 @@
 </head> 
 <body ng-controller="GalleryController" >
 <div data-role="page" data-fullscreen = "true">
-		<div data-role="header" data-position="inline" data-theme="a">
-			<h1>It Worked!</h1>
-		</div>
 
+        <div data-role="content" class="imageBlock"  ng-show="showImage"  >
 
-        <div data-role="content" class="imageBlock"  ng-show="showImage" ng-click="closeImage()" >
+                <a href="" id="closeView" ng-click="closeImage()"
+                   class="ui-btn ui-corner-all ui-btn-inline ui-mini ui-btn-right ui-btn-icon-right ui-icon-delete close-button" >Close</a>
+                    
 
             <img class="big_image"
                  ng-src="backend/index.php/image_gallery_controller/gallery/{{currentImage.id}}">
-            <div data-role="footer" data-position="fixed" >
+            <div id="image-metadata" class="imageFooter" data-role="footer" data-position="fixed" >
+
+                <a href="" ng-click="viewPrevImage()" class="ui-btn ui-corner-all ui-btn-inline ui-mini footer-button-left ui-btn-icon-left ui-icon-carat-l" >Previous</a>
+                <a href="" ng-click="viewNextImage()" class="ui-btn ui-corner-all ui-btn-inline ui-mini footer-button-right ui-btn-icon-right ui-icon-carat-r">Next</a>
                 <h4>Name: {{currentImage.name}}
                     <br>
-                Author: {{currentImage.author_name}}</h4>
-                <a href="" class="ui-btn ui-corner-all ui-btn-inline ui-mini footer-button-left ui-btn-icon-left ui-icon-carat-l" >Previous</a>
-                <a href="" class="ui-btn ui-corner-all ui-btn-inline ui-mini footer-button-right ui-btn-icon-right ui-icon-carat-r">Next</a>
+                    Author: {{currentImage.author_name}}
+                </h4>
+            </div>
+
+            <div class="wrapperComments">
+
+
+                <form id="new_comment">
+                        <label for="comment_author">Name:</label>
+                        <input type="text" name="comment_author" id="comment_author" value="">
+                        <label for="comment_text">Comment:</label>
+                        <textarea name="comment_text" id="comment_text"></textarea>
+                        <a href="#" ng-click="submitComment()" class="ui-btn ui-corner-all">Submit</a>
+                </form>
+                <div ng-repeat="comment in comments" class="commentsByImage" >
+                    {{comment.name}}
+                    <br>
+                    {{comment.text}}
+                </div>
             </div>
 
         </div>
 
 
         <div id="gallery_content" ng-hide="showImage" data-role="content" data-theme="a" >
+            <div data-role="header" data-position="inline" data-theme="a">
+                <h1>It Worked!</h1>
+            </div>
 
 			<!-- otra posibilidad de ng-repeat:<img ng-repeat="image in images" ng-src="{{image}}"></img>
 			<div ng-repeat="image in images"> <img ng-src={{image}}/> </div>-->
@@ -42,9 +64,9 @@
 		<div data-role="content"  data-theme="c" class="ui-content ui-body-c" role="main">
 
 				<div ng-repeat="image in images" class="gallery_images">
-                    <div class="wrapper">
+                    <div class="wrapperImage">
 					<img class="gallery_images" ng-click="imageOnClick(image)"
-                         ng-src="backend/index.php/image_gallery_controller/gallery/{{image.id}}">
+                         ng-src="backend/index.php/image_gallery_controller/thumbnail/{{image.id}}">
 
 
                     </div>
