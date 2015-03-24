@@ -11,6 +11,8 @@ galleryApp.controller('GalleryController', function ($scope, $http) {
 		$scope.images = data.images;
 	});
 
+    // NAV IMAGES
+    $scope.showImage = false;
 	$scope.imageOnClick = function(image){
         $scope.showImage = true;
 
@@ -49,6 +51,25 @@ galleryApp.controller('GalleryController', function ($scope, $http) {
         $scope.comments = null;
     };
 
+
+    // MAIN PAGE
+
+    $scope.showMainPage = true;
+
+    $scope.showMainPageOnClick = function(){
+        $scope.showMainPage = true;
+    }
+
+    // GALLERY
+
+    $scope.showGalleryOnClick = function(){
+        $scope.showMainPage = false;
+    }
+
+
+
+    //SHOW COMMENTS
+
     $scope.submitComment = function() {
         var author = document.getElementById('comment_author').value;
         var text = document.getElementById('comment_text').value;
@@ -76,9 +97,5 @@ galleryApp.controller('GalleryController', function ($scope, $http) {
     }
 
 
-
-
-	// La vista solo ve las cosas que estan en $scope; es como el $context en
-	// CodeIgniter.
 });
 

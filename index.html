@@ -1,32 +1,95 @@
-<html ng-app="galleryApp">
+<!DOCTYPE html>
+<html ng-app="galleryApp" manifest="backend/index.php/generate_manifest">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Gallery Rondam</title>
-	<link rel="stylesheet" href="mystyle.css" />
-	<link rel="stylesheet" href="themes/curiosity_killed.min.css" />
-	<link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
-	<script src="js/angular/angular.js"></script>
-	<script src="js/GalleryController.js"></script>
-	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-</head> 
-<body ng-controller="GalleryController" >
-<div data-role="page" data-fullscreen = "true">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gallery Rondam</title>
+    <link rel="stylesheet" href="mystyle.css"/>
+    <link rel="stylesheet" href="themes/curiosity_killed.min.css"/>
+    <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css"/>
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css"/>
+    <script src="js/angular/angular.js"></script>
+    <script src="js/GalleryController.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+</head>
 
-        <div data-role="content" class="imageBlock"  ng-show="showImage"  >
+<body ng-controller="GalleryController">
 
-                <a href="" id="closeView" ng-click="closeImage()"
-                   class="ui-btn ui-corner-all ui-btn-inline ui-mini ui-btn-right ui-btn-icon-right ui-icon-delete close-button" >Close</a>
-                    
+<div data-role="page" data-fullscreen="true">
+
+    <!-- HEADER -->
+    <div data-role="header" data-position="fixed" data-theme="a" role="contentinfo"
+         class="ui-header ui-bar-a ui-header-fixed-slideup " ng-hide="showImage">
+        <h1>Gallery RONDAM</h1>
+
+        <!-- MENU -->
+        <div id="navselect" data-role="collapsible" class="ui-navbar" role="navigation">
+            <h2>MENU</h2>
+            <ul class="ui-grid-c">
+                <li class="ui-block-a">
+                    <a href="#" data-prefetch="true" data-transition="fade" class="ui-btn ui-btn-active"
+                       ng-click="showMainPageOnClick()" ng-hide="showImage">Main Page</a>
+                </li>
+                <li class="ui-block-b">
+                    <a href="#" ng-click="showGalleryOnClick()" class="ui-btn ui-btn-active">Gallery</a>
+                </li>
+                <li class="ui-block-c">
+                    <a href="#expoAnchor" ng-click="showMainPageOnClick()" data-ajax="false" class="ui-btn ui-btn-active">
+                        Exhibitions</a>
+                </li>
+                <li class="ui-block-d">
+                    <a href="#artistsAnchor" ng-click="showMainPageOnClick()" data-ajax="false" class="ui-btn ui-btn-active">
+                        Our Artists</a>
+                </li>
+                <li class="ui-block-e">
+                    <a href="#whereAnchor" ng-click="showMainPageOnClick()" data-ajax="false" class="ui-btn ui-btn-active">
+                        Where to find us</a>
+                </li>
+            </ul>
+        </div>
+        <div id="navmenu" data-role="navbar" class="ui-navbar" role="navigation">
+            <ul class="ui-grid-c">
+                <li class="ui-block-a">
+                    <a href="#" data-prefetch="true" data-transition="fade" class="ui-btn ui-btn-active"
+                       ng-click="showMainPageOnClick()" ng-hide="showImage">Main Page</a>
+                </li>
+                <li class="ui-block-b">
+                    <a href="#" ng-click="showGalleryOnClick()">Gallery</a>
+                </li>
+                <li class="ui-block-c">
+                    <a href="#expoAnchor" ng-click="showMainPageOnClick()" data-ajax="false">Exhibitions</a>
+                </li>
+                <li class="ui-block-d">
+                    <a href="#artistsAnchor" ng-click="showMainPageOnClick()" data-ajax="false">Our Artists</a>
+                </li>
+                <li class="ui-block-e">
+                    <a href="#whereAnchor" ng-click="showMainPageOnClick()" data-ajax="false">Where to find us</a>
+                </li>
+
+            </ul>
+        </div>
+    </div> <!-- HEADER END-->
+
+
+    <div ng-hide="showMainPage">
+        <!-- IMAGE VIEW NAVIGATOR PAGE -->
+
+        <div data-role="content" class="imageBlock" ng-show="showImage" data-theme="a">
+
+            <a href="" id="closeView" ng-click="closeImage()"
+               class="ui-btn ui-corner-all ui-btn-inline ui-mini ui-btn-right ui-btn-icon-right ui-icon-delete close-button">Close</a>
+                
 
             <img class="big_image"
                  ng-src="backend/index.php/image_gallery_controller/gallery/{{currentImage.id}}">
-            <div id="image-metadata" class="imageFooter" data-role="footer" data-position="fixed" >
 
-                <a href="" ng-click="viewPrevImage()" class="ui-btn ui-corner-all ui-btn-inline ui-mini footer-button-left ui-btn-icon-left ui-icon-carat-l" >Previous</a>
-                <a href="" ng-click="viewNextImage()" class="ui-btn ui-corner-all ui-btn-inline ui-mini footer-button-right ui-btn-icon-right ui-icon-carat-r">Next</a>
+            <div id="image-metadata" class="imageFooter" data-role="footer" data-position="fixed">
+
+                <a href="" ng-click="viewPrevImage()"
+                   class="ui-btn ui-corner-all ui-btn-inline ui-mini footer-button-left ui-btn-icon-left ui-icon-carat-l">Previous</a>
+                <a href="" ng-click="viewNextImage()"
+                   class="ui-btn ui-corner-all ui-btn-inline ui-mini footer-button-right ui-btn-icon-right ui-icon-carat-r">Next</a>
                 <h4>Name: {{currentImage.name}}
                     <br>
                     Author: {{currentImage.author_name}}
@@ -37,130 +100,71 @@
 
 
                 <form id="new_comment">
-                        <label for="comment_author">Name:</label>
+                    <label for="comment_author">Name:</label>
                         <input type="text" name="comment_author" id="comment_author" value="">
                         <label for="comment_text">Comment:</label>
                         <textarea name="comment_text" id="comment_text"></textarea>
-                        <a href="#" ng-click="submitComment()" class="ui-btn ui-corner-all">Submit</a>
+                    <a href="#" ng-click="submitComment()" class="ui-btn ui-corner-all">Submit</a>
                 </form>
-                <div ng-repeat="comment in comments" class="commentsByImage" >
-                    {{comment.name}}
-                    <br>
-                    {{comment.text}}
-                </div>
-            </div>
-
-        </div>
-
-
-        <div id="gallery_content" ng-hide="showImage" data-role="content" data-theme="a" >
-            <div data-role="header" data-position="inline" data-theme="a">
-                <h1>It Worked!</h1>
-            </div>
-
-			<!-- otra posibilidad de ng-repeat:<img ng-repeat="image in images" ng-src="{{image}}"></img>
-			<div ng-repeat="image in images"> <img ng-src={{image}}/> </div>-->
-			
-		<div data-role="content"  data-theme="c" class="ui-content ui-body-c" role="main">
-
-				<div ng-repeat="image in images" class="gallery_images">
-                    <div class="wrapperImage">
-					<img class="gallery_images" ng-click="imageOnClick(image)"
-                         ng-src="backend/index.php/image_gallery_controller/thumbnail/{{image.id}}">
-
-
+                <div ng-repeat="comment in comments" class="comment-list">
+                    <div class="metadata">
+                        <span class="author">{{comment.name}}</span> <span class="date">on {{comment.date}}</span>
+                    </div>
+                    <div class="comment-body">
+                        {{comment.text}}
                     </div>
                 </div>
-        </div>
-
-
+            </div>
 
         </div>
 
+        <!-- GALLERY PAGE -->
+
+        <div id="gallery_content" ng-hide="showImage" data-role="content" data-theme="a">
 
 
+            <div data-role="content" data-theme="c" class="ui-content ui-body-c" role="main">
 
-           <div class="view" data-role="content" data-theme="d">
-               <p>Your theme was successfully downloaded. You can use this page as a reference for how to link it up!</p>
-               <pre>
+                <div ng-repeat="image in images" class="gallery_images">
+                    <div class="wrapperImage">
+                        <img class="gallery_images" ng-click="imageOnClick(image)"
+                             ng-src="backend/index.php/image_gallery_controller/thumbnail/{{image.id}}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-               </pre>
-               <p>This is content color swatch "d" and a preview of a <a href="#" class="ui-link">link</a>.</p>
-               <label for="slider1">Input slider:</label>
-               <input type="range" name="slider1" id="slider1" value="50" min="0" max="100" data-theme="d" />
-               <fieldset data-role="controlgroup"  data-type="horizontal" data-role="fieldcontain">
-               <legend>Cache settings:</legend>
-               <input type="radio" name="radio-choice-a1" id="radio-choice-a1" value="on" checked="checked" />
-               <label for="radio-choice-a1">On</label>
-               <input type="radio" name="radio-choice-a1" id="radio-choice-b1" value="off"  />
-               <label for="radio-choice-b1">Off</label>
-               </fieldset>
-           </div>
+    <!-- MAIN PAGE -->
 
-           <div class="view" data-role="content" data-theme="c">
-               <p>Your theme was successfully downloaded. You can use this page as a reference for how to link it up!</p>
-               <pre>
-   <strong>&lt;link rel=&quot;stylesheet&quot; href=&quot;themes/colores.min.css&quot; /&gt;</strong>
-   <strong>&lt;link rel=&quot;stylesheet&quot; href=&quot;themes/jquery.mobile.icons.min.css&quot; /&gt;</strong>
-   &lt;link rel=&quot;stylesheet&quot; href=&quot;http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css&quot; /&gt;
-   &lt;script src=&quot;http://code.jquery.com/jquery-1.11.1.min.js&quot;&gt;&lt;/script&gt;
-   &lt;script src=&quot;http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js&quot;&gt;&lt;/script&gt;
-               </pre>
-               <p>This is content color swatch "c" and a preview of a <a href="#" class="ui-link">link</a>.</p>
-               <label for="slider1">Input slider:</label>
-               <input type="range" name="slider1" id="slider1" value="50" min="0" max="100" data-theme="d" />
-               <fieldset data-role="controlgroup"  data-type="horizontal" data-role="fieldcontain">
-               <legend>Cache settings:</legend>
-               <input type="radio" name="radio-choice-a1" id="radio-choice-a1" value="on" checked="checked" />
-               <label for="radio-choice-a1">On</label>
-               <input type="radio" name="radio-choice-a1" id="radio-choice-b1" value="off"  />
-               <label for="radio-choice-b1">Off</label>
-               </fieldset>
-           </div>
+    <div class="mainPage" class="container" ng-show="showMainPage">
 
 
-           <div class="view" data-role="content" data-theme="b">
-               <p>Your theme was successfully downloaded. You can use this page as a reference for how to link it up!</p>
-               <pre>
-   <strong>&lt;link rel=&quot;stylesheet&quot; href=&quot;themes/colores.min.css&quot; /&gt;</strong>
-   <strong>&lt;link rel=&quot;stylesheet&quot; href=&quot;themes/jquery.mobile.icons.min.css&quot; /&gt;</strong>
-   &lt;link rel=&quot;stylesheet&quot; href=&quot;http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css&quot; /&gt;
-   &lt;script src=&quot;http://code.jquery.com/jquery-1.11.1.min.js&quot;&gt;&lt;/script&gt;
-   &lt;script src=&quot;http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js&quot;&gt;&lt;/script&gt;
-               </pre>
-               <p>This is content color swatch "b" and a preview of a <a href="#" class="ui-link">link</a>.</p>
-               <label for="slider1">Input slider:</label>
-               <input type="range" name="slider1" id="slider1" value="50" min="0" max="100" data-theme="d" />
-               <fieldset data-role="controlgroup"  data-type="horizontal" data-role="fieldcontain">
-               <legend>Cache settings:</legend>
-               <input type="radio" name="radio-choice-a1" id="radio-choice-a1" value="on" checked="checked" />
-               <label for="radio-choice-a1">On</label>
-               <input type="radio" name="radio-choice-a1" id="radio-choice-b1" value="off"  />
-               <label for="radio-choice-b1">Off</label>
-               </fieldset>
-           </div>
+        <div class="view" data-role="content" data-theme="d">
+            <a name="expoAnchor">loquesea</a>
+
+            <p>EXPO: currentExpo</p>
+        </div>
+
+        <div class="view" data-role="content" data-theme="c">
+            <a name="artistsAnchor">jaja</a>
+
+            <p>AUTHORS:</p>
+        </div>
 
 
-           <div class="view" data-role="content" data-theme="a">
-               <p>Your theme was successfully downloaded. You can use this page as a reference for how to link it up!</p>
-               <pre>
-   <strong>&lt;link rel=&quot;stylesheet&quot; href=&quot;themes/colores.min.css&quot; /&gt;</strong>
-   <strong>&lt;link rel=&quot;stylesheet&quot; href=&quot;themes/jquery.mobile.icons.min.css&quot; /&gt;</strong>
-   &lt;link rel=&quot;stylesheet&quot; href=&quot;http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css&quot; /&gt;
-   &lt;script src=&quot;http://code.jquery.com/jquery-1.11.1.min.js&quot;&gt;&lt;/script&gt;
-   &lt;script src=&quot;http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js&quot;&gt;&lt;/script&gt;
-               </pre>
-               <p>This is content color swatch "a" and a preview of a <a href="#" class="ui-link">link</a>.</p>
-               <label for="slider1">Input slider:</label>
-               <input type="range" name="slider1" id="slider1" value="50" min="0" max="100" data-theme="d" />
-               <fieldset data-role="controlgroup"  data-type="horizontal" data-role="fieldcontain">
-               <legend>Cache settings:</legend>
-               <input type="radio" name="radio-choice-a1" id="radio-choice-a1" value="on" checked="checked" />
-               <label for="radio-choice-a1">On</label>
-               <input type="radio" name="radio-choice-a1" id="radio-choice-b1" value="off"  />
-               <label for="radio-choice-b1">Off</label>
-               </fieldset>
-           </div>
+        <div class="view" data-role="content" data-theme="b">
+            <a name="whereAnchor">jaja</a>
+
+            <p> WHERE YOU CAN FIND US</p>
+        </div>
+
+
+        <div class="contactAnchor" data-role="content" data-theme="a">
+            <p>CONTACT US</p>
+        </div>
+
+    </div>
 </div>
-   </body>
-   </html>
+</body>
+</html>

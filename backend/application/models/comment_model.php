@@ -20,10 +20,11 @@ class Comment_Model extends CI_Model
 
     public function add ($image_id, $name, $text)
     {
+        $this->load->helper('date');
         $this->db->set('name', $name);
         $this->db->set('text', $text);
         $this->db->set('image', $image_id);
-        $this->db->set('date', 'NOW()');
+        $this->db->set('date', date('Y-m-d H:i:s',now()));
 
         $this->db->insert('comment');
         if ($this->db->affected_rows()> 0)

@@ -195,7 +195,6 @@ class Admin_Image_Controller extends CI_Controller
                 /*removing from local*/
 
                 $image = $this->image_model->get_image_by_id($id);
-                //\var_dump($image);
                 unlink($image->url);
 
                 /*removing from db */
@@ -235,7 +234,6 @@ class Admin_Image_Controller extends CI_Controller
 
         $context['form_images'] = $form_images;
 
-        //\var_dump($form_images);
         $this->load->view('image_view', $context);
 
     }

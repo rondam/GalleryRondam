@@ -27,11 +27,11 @@ class Image_Gallery_Controller extends CI_Controller
 
         if($type[sizeof($type)-1] === 'png'){
                 $this->output
-                    ->set_content_type('png') // You could also use ".jpeg" which will have the full stop removed before looking in config/mimes.php
+                    ->set_content_type('png')
                     ->set_output(file_get_contents( $image->url));
         }elseif ($type[sizeof($type)-1] === 'jpg' || $type[sizeof($type)-1] === 'jpeg'){
             $this->output
-                ->set_content_type('jpg') // You could also use ".jpeg" which will have the full stop removed before looking in config/mimes.php
+                ->set_content_type('jpg')
                 ->set_output(file_get_contents( $image->url));
         }
     }
@@ -61,23 +61,9 @@ class Image_Gallery_Controller extends CI_Controller
 
     public function index()
     {
-        // we are going to store data from the database in this array
+        // We are going to store data from the database in this array
         // image, exhibition, author and imageexhibition
 
-
-        /*
-         * BORRAR ESTO
-         *
-         * $images = $this->image_model->select_all();
-
-        $form_image = [];
-
-        foreach ($images->result() as $item)
-        {
-            $form_image[$item->id] = $item->name;
-        }
-
-        echo \var_dump($form_image);*/
 
         $data = array(
             'images' => $this->image_model->select_all(),
@@ -87,7 +73,7 @@ class Image_Gallery_Controller extends CI_Controller
         );
         
 
-        /* Make $data be able to be understand by javascript */
+        /* Make $data be able to be understood by javascript */
 
         $this->output
             ->set_content_type('application/json')
